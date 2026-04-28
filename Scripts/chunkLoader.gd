@@ -48,14 +48,17 @@ func generate():
 			var br = elevation_noise.get_noise_2d(worldKeyX + 1, worldKeyZ + offset) * (20 * tileSize) + (20 * tileSize)
 			var b = elevation_noise.get_noise_2d(worldKeyX, worldKeyZ + 1) * (20 * tileSize) + (20 * tileSize)
 			var bl = elevation_noise.get_noise_2d(worldKeyX - 1, worldKeyZ + offset) * (20 * tileSize) + (20 * tileSize)
-			var right = (tright + br) / 2 - y_pos
-			var bRight = (b + br) / 2 - y_pos
-			var bLeft = (b + bl) / 2 - y_pos
-			var left = (tl + bl) / 2 - y_pos
-			var tLeft = (tl + t) / 2 - y_pos
-			var tRight = (t + tright) / 2 - y_pos
-			hex.heightMap = [right, bRight, bLeft, left, tLeft, tRight]
-			if (worldKeyX == 0 && worldKeyZ == 0): print(hex.heightMap)
+			var right = GetVertexHeight(y_pos, br, tright)
+			var bRight = GetVertexHeight(y_pos, br, b)
+			var bLeft = GetVertexHeight(y_pos, b, bl)
+			var left = GetVertexHeight(y_pos, tl, bl)
+			var tLeft = GetVertexHeight(y_pos, tl, t)
+			var tRight = GetVertexHeight(y_pos, t, tright)
+			hex.heightMap = [right.vertex, bRight.vertex, bLeft.vertex, left.vertex, tLeft.vertex, tRight.vertex]
+			hex.wallMap = [right.wall, bRight.wall, bLeft.wall, left.wall, tLeft.wall, tRight.wall]
+			if (worldKeyX == 0 && worldKeyZ == 0):
+				print (hex.heightMap)
+				print(hex.wallMap)
 			add_child(hex)
 			# Storing hex position in chunk and world
 			tile["instance"] = hex
@@ -63,3 +66,48 @@ func generate():
 			var hexWorldPos = Vector2i(worldKeyX,worldKeyZ)
 			worldGrid[hexWorldPos] = {"hex": tile}
 			
+func GetVertexHeight(origin, vertex1, vertex2):
+	var maxDifference = tileSize
+	var newHeight = origin
+	var determinant = 1
+	if abs(origin - vertex1) <= maxDifference:
+		newHeight += vertex1
+		determinant += 1
+	if abs(origin - vertex2) <= maxDifference:
+		newHeight += vertex2
+		determinant += 1
+	newHeight = newHeight / determinant - origin
+	if (determinant == 3 && newHeight > origin):
+		return {
+			'vertex': newHeight,
+			"wall": 0
+		}
+	# Calculating Adjusted Vertices to properly calculate wall height
+	var vertex1NewHeight = vertex1
+	var vertex1Determinant = 1
+	if abs(vertex1 - origin) <= maxDifference:
+		vertex1NewHeight += origin
+		vertex1Determinant += 1
+	if abs(vertex1 - vertex2) <= maxDifference:
+		vertex1NewHeight += vertex2
+		vertex1Determinant += 1
+	vertex1NewHeight = vertex1NewHeight / vertex1Determinant - vertex1
+	
+	var vertex2NewHeight = vertex1
+	var vertex2Determinant = 1
+	if abs(vertex2 - origin) <= maxDifference:
+		vertex2NewHeight += origin
+		vertex2Determinant += 1
+	if abs(vertex2 - vertex1) <= maxDifference:
+		vertex2NewHeight += vertex1
+		vertex2Determinant += 1
+	vertex2NewHeight = vertex2NewHeight / vertex2Determinant - vertex2
+	
+	# Calculating Wall Height
+	var top = max(newHeight, vertex1NewHeight, vertex2NewHeight)
+	var bottom = min(newHeight, vertex1NewHeight, vertex2NewHeight)
+	var wallHeight = max(0, origin - min(vertex1, vertex2))
+	return {
+		'vertex': newHeight,
+		"wall": wallHeight
+		}

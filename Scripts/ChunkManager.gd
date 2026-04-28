@@ -21,6 +21,8 @@ var world
 var st = SurfaceTool.new()
 var currentplayerTile
 @onready var chunk_scene = preload("res://Scenes/WorldGen/chunk.tscn")
+var thread_pool: Array = []
+var completed_chunks: Array = []
 
 func _init(inputSeed : int, playerCharacter, renderDistance : int, chunk_Size : int, tile_size : float, worldGrid):
 	worldSeed = inputSeed
@@ -34,7 +36,7 @@ func _init(inputSeed : int, playerCharacter, renderDistance : int, chunk_Size : 
 	chunkHeight = hexHeight * chunkSize
 	elevation_noise.seed = worldSeed
 	elevation_noise.noise_type = FastNoiseLite.TYPE_PERLIN
-	elevation_noise.frequency = .01
+	elevation_noise.frequency = .03
 	world = worldGrid
 
 	
@@ -109,8 +111,9 @@ func spawn_chunk(cx: int, cz: int):
 	chunk.elevation_noise = elevation_noise
 	add_child(chunk)
 	chunk.generate()
+	
 	activeChunks[key] = chunk
-
+	
 func unload_far_chunks(center: Vector2i):
 	for key in activeChunks.keys():
 		var dx = key.x - center.x

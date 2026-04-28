@@ -5,7 +5,7 @@
 
 [node name="Node3D" type="Node3D" unique_id=1159309732]
 script = ExtResource("1_beh5b")
-Render_Distance = 3
+Render_Distance = 6
 Tile_Size = 10
 Chunk_Size = 8
 worldSeed = 1

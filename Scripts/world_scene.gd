@@ -22,7 +22,7 @@ func _ready() -> void:
 	add_child(chunkLoader)
 	add_child(playerInstance)
 	#var startingHeight = chunkManager.elevation_noise.get_noise_2d(0, 0) * (20 * Tile_Size) + (20 * Tile_Size)
-	playerInstance.position = Vector3(0, 205, 0)
+	playerInstance.position = Vector3(0, 255, 0)
 	pass # Replace with function body.
 
 
