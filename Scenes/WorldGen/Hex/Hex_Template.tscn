@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ceyql4obqhvw"]
 
-[ext_resource type="Script" uid="uid://clnbrvmwyksy3" path="res://Scenes/WorldGen/Hex/hex_tile.gd" id="1_pk2wf"]
+[ext_resource type="Script" uid="uid://bs5xgy81o7bpk" path="res://Scenes/WorldGen/Hex_Generator.gd" id="1_bg423"]
 
 [node name="Node3D" type="Node3D" unique_id=349867667]
-script = ExtResource("1_pk2wf")
+script = ExtResource("1_bg423")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=946162374]
 

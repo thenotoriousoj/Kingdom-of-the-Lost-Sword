@@ -5,13 +5,10 @@
 
 [node name="Node3D" type="Node3D" unique_id=1159309732]
 script = ExtResource("1_beh5b")
-Render_Distance = 6
-Tile_Size = 10
+Render_Distance = 3
+Tile_Size = 16
 Chunk_Size = 8
 worldSeed = 1
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1963353929]
-transform = Transform3D(0.10723586, -0.58525187, 0.8037293, 0, 0.80839074, 0.5886463, -0.9942336, -0.063123986, 0.08668848, 8.061743, 9.618384, 0)
 
 [node name="Label" type="Label" parent="." unique_id=1816705800]
 offset_right = 40.0

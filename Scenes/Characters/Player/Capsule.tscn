@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://dx2e8py0hgodu"]
 
-[ext_resource type="Script" uid="uid://by2ihs3548iq6" path="res://character_body_3d.gd" id="1_xhfnw"]
-[ext_resource type="Script" uid="uid://dl77wirdoi6ht" path="res://camera_3d.gd" id="2_kpjcp"]
+[ext_resource type="Script" uid="uid://by2ihs3548iq6" path="res://Scripts/character_body_3d.gd" id="1_xhfnw"]
+[ext_resource type="Script" uid="uid://dl77wirdoi6ht" path="res://Scripts/camera_3d.gd" id="2_kpjcp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xhfnw"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_5ox6u"]
+
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1502067155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0098917, 0)
 script = ExtResource("1_xhfnw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1081662908]
@@ -21,9 +24,14 @@ transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.965
 current = true
 script = ExtResource("2_kpjcp")
 mouse_sensitivity = 0.003
-zoom_speed = 0.3
+zoom_speed = 0.1
 zoom_smoothness = 5.0
-min_distance = 6.0
-max_distance = 12.0
+min_distance = 5.0
+max_distance = 8.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Camera3D" unique_id=101431510]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/StaticBody3D" unique_id=745111208]
+shape = SubResource("SphereShape3D_5ox6u")
 
 [node name="Node3D" type="Node3D" parent="." unique_id=1396287261]

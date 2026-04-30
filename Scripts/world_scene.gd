@@ -9,10 +9,13 @@ var RNG = RandomNumberGenerator.new()
 
 @onready var chunkManager = preload("res://Scripts/ChunkManager.gd")
 @onready var player = preload("res://Scenes/Characters/Player/Capsule.tscn")
+@onready var AmbienceControl = preload("res://Scenes/WorldGen/Ambience.tscn")
 var playerInstance
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var ambience = AmbienceControl.instantiate()
+	add_child(ambience)
 	#Generate World Tile System
 	if (worldSeed == 0):
 		RNG.randomize()
@@ -20,12 +23,8 @@ func _ready() -> void:
 	playerInstance = player.instantiate()
 	var chunkLoader = chunkManager.new(worldSeed, playerInstance, Render_Distance, Chunk_Size, Tile_Size, world_grid)
 	add_child(chunkLoader)
+	playerInstance.position = chunkLoader._spawnplayer(Vector2i(4, 5))
 	add_child(playerInstance)
-	#var startingHeight = chunkManager.elevation_noise.get_noise_2d(0, 0) * (20 * Tile_Size) + (20 * Tile_Size)
-	playerInstance.position = Vector3(0, 255, 0)
-	pass # Replace with function body.
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
