@@ -14,3 +14,7 @@ worldSeed = 1
 offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("2_pm5xc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=340400271]
+transform = Transform3D(1, 0, 0, 0, -0.7599864, 0.649939, 0, -0.649939, -0.7599864, 0, 2.8838525, 0)
+shadow_enabled = true

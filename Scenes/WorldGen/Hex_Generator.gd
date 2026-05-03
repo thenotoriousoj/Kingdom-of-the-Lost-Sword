@@ -7,7 +7,7 @@ var height_map: Array = []
 var wall_map: Array = []
 var top_texture: Material
 var wall_texture: Material
-var wall_texture_scale = 1
+var wall_texture_scale = 3
 var initialCollision = false
 func get_collision_shape(mesh):
 	return mesh.create_trimesh_shape()

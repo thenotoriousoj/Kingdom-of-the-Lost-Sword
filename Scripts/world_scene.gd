@@ -15,8 +15,8 @@ var playerInstance
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var ambience = AmbienceControl.instantiate()
-	add_child(ambience)
+	#var ambience = AmbienceControl.instantiate()
+	#add_child(ambience)
 	#Generate World Tile System
 	if (worldSeed == 0):
 		RNG.randomize()
@@ -26,6 +26,7 @@ func _ready() -> void:
 	add_child(chunkLoader)
 	playerInstance.position = chunkLoader._spawnplayer(Vector2i(4, 5))
 	add_child(playerInstance)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass

@@ -2,6 +2,9 @@ extends Node
 
 class_name ChunkManager
 signal chunk_changed(new_chunk: Vector2i)
+signal chunk_generated(data)
+var thread := Thread.new()
+var thread_running := false
 
 var worldSeed
 var player
@@ -9,7 +12,8 @@ var render_distance
 var physics_distance
 var tile_size: Dictionary
 var chunk_size: Dictionary
-var activeChunks = {}
+var active_chunks = {}
+var cached_chunks = {}
 var current_chunk := Vector2i(999999, 999999)
 var chunk_queue: Array = []
 var max_tasks_per_frame = 1
@@ -21,8 +25,8 @@ var currentplayerTile
 var Map = preload("res://Scripts/Map_Manager.gd")
 var tile_generator
 @onready var chunk_scene = preload("res://Scenes/WorldGen/chunk.tscn")
-
 var completed_chunks: Array = []
+
 
 func _init(inputSeed : int, playerCharacter, renderDistance : int, physic: int,chunk_Size : int, tileSize : float, worldGrid):
 	worldSeed = inputSeed
@@ -46,8 +50,9 @@ func _init(inputSeed : int, playerCharacter, renderDistance : int, physic: int,c
 	humidity_noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	humidity_noise.frequency = .03
 	world_grid = worldGrid
-	tile_generator = Map.new(worldSeed)
 	_spawnplayer(Vector2i(4,4))
+	connect("chunk_generated", Callable(self, "_handle_chunk_generated"))
+	
 func _spawnplayer(center: Vector2i):
 	var offset = center.x % 2
 	var centerV = elevation_noise.get_noise_2d(center.x,  center.y) * (20 * tile_size.value) + (20 * tile_size.value)
@@ -65,7 +70,6 @@ func _spawnplayer(center: Vector2i):
 	totalSpawnHeight += (b + bl + centerV) / 3
 	totalSpawnHeight += (tl + bl + centerV) / 3
 	totalSpawnHeight /= 6
-
 	return Vector3(center.x, totalSpawnHeight + 30, center.y)
 
 func _process(_delta):
@@ -78,11 +82,11 @@ func _process(_delta):
 	if world_grid.has(playerLoc):
 		var newplayerTile = world_grid[playerLoc]
 		if (currentplayerTile != newplayerTile):
-			print('Players Hex Location: (', q, ', ', r, ') Hex Type: ', newplayerTile)
+			#print('Players Hex Location: (', q, ', ', r, ') Hex Type: ', newplayerTile)
 			currentplayerTile = newplayerTile
 	var new_chunk = get_chunk(player.global_position)
 	processChunkQueue()
-	process_completed_chunks()
+
 	if new_chunk != current_chunk:
 		current_chunk = new_chunk
 		emit_signal("chunk_changed", new_chunk)
@@ -92,44 +96,36 @@ func get_chunk(pos: Vector3) -> Vector2i:
 	return Vector2i(floor(pos.x / chunk_size.w), floor(pos.z / chunk_size.h))
 
 func update_chunks(center: Vector2i):
-	var new_active = {}
+	var to_unload = active_chunks.duplicate()
 	for x in range(center.x - render_distance, center.x + render_distance + 1):
 		for z in range(center.y - render_distance, center.y + render_distance + 1):
 			var key = Vector2i(x, z)
-			if activeChunks.has(key):
-				new_active[key] = activeChunks[key]
-				activeChunks.erase(key)
+			if to_unload.has(key):
+				to_unload.erase(key)
 			else:
 				chunk_queue.append({
 					"type": "load",
 					"x": x,
 					"z": z
 				})
-	for key in activeChunks:
-		chunk_queue.append({
-			"type": "unload",
-			"chunk": key
-		})
-	activeChunks = new_active
-	
+	for key in to_unload:
+		chunk_queue.append({ "type": "unload", "chunk": key })
+		
 func spawn_chunk(cx: int, cz: int):
 	var key = Vector2i(cx, cz)
-	if activeChunks.has(key):
+	if active_chunks.has(key):
 		return
-	var chunkSeed = get_chunk_seed(cx, cz)
-	var chunk = chunk_scene.instantiate()
-	chunk.Map = tile_generator
-	chunk.tileSize = tile_size
-	chunk.cx = cx
-	chunk.cz = cz
-	chunk.elevation_map = elevation_noise
-	chunk.humidity = (humidity_noise.get_noise_2d(cx, cz) + 1) / 2
-	chunk.chunk_Seed = chunkSeed
-	chunk.chunk_size = chunk_size
-	chunk.worldGrid = world_grid
-	add_child(chunk)
-	activeChunks[key] = chunk
-	
+	if cached_chunks.has(key):
+		var cached_chunk = cached_chunks[key]
+		var chunk = chunk_scene.instantiate()
+		chunk.data = cached_chunk.data
+		chunk.fromCache = true
+		add_child(chunk)
+		active_chunks[key] = chunk
+	else:	
+		_thread_generate_chunk(cx , cz)
+		start_chunk_thread(cx, cz)
+
 func get_chunk_seed(cx: int, cz: int) -> int:
 	var hashedSeed = hash(str(worldSeed, "_", cx, "_", cz))
 	return hashedSeed
@@ -145,18 +141,35 @@ func execute_task(task):
 		'load':
 			spawn_chunk(task['x'], task['z'])
 		'unload':
-			var key = task['chunk']
-			var chunk = activeChunks.get(key)
-			if chunk and is_instance_valid(chunk):
-				chunk.queue_free()
-			activeChunks.erase(key)
-func process_completed_chunks():
-	while completed_chunks.size() > 0:
-		var data = completed_chunks.pop_front()
-		var key = Vector2i(data.position.x, data.position.z)
-		if activeChunks.has(key):
-			continue
-		var chunk = chunk_scene.instantiate()
-		chunk.chunk_data = data
-		add_child(chunk)
-		activeChunks[key] = chunk
+			unload_chunk(task["chunk"])
+func unload_chunk(key):
+	if active_chunks.has(key) and is_instance_valid(active_chunks[key]):
+		var chunk = active_chunks[key]
+		cached_chunks[key] = {
+			"data": chunk.data
+		}
+		chunk.queue_free()
+		active_chunks.erase(key)
+func start_chunk_thread(cx: int, cz: int):
+	#if thread_running:
+		return
+	#thread_running = true
+	#thread.start(Callable(self, "_thread_generate_chunk").bind(cx, cz))
+func _thread_generate_chunk(cx: int, cz: int):
+	var chunkSeed = get_chunk_seed(cx, cz)
+	var map = Map.new(chunkSeed)
+	var chunkData = map.generateChunkData(cx, cz, elevation_noise, humidity_noise, chunk_size, tile_size, world_grid)
+	# IMPORTANT: defer signal back to main thread
+	call_deferred("_on_chunk_generated", chunkData)
+func _on_chunk_generated(data):
+	#thread.wait_to_finish()
+	#thread_running = false
+	emit_signal("chunk_generated", data)
+func _handle_chunk_generated(data):
+	var key = Vector2i(data.position.chunk.x, data.position.chunk.y)
+	if active_chunks.has(key):
+		return
+	var chunk = chunk_scene.instantiate()
+	chunk.data = data
+	add_child(chunk)
+	active_chunks[key] = chunk
