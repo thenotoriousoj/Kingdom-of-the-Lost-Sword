@@ -6,7 +6,7 @@ extends Node3D
 @onready var sky_mat = env.environment.sky.sky_material
 
 var time_of_day := 0.0 # 0 = day, 1 = night
-var speed := 0.001
+var speed := 0.01
 var rot := Vector3(0, 0, 0)
 var day_count = 0
 var skyrotation = 0

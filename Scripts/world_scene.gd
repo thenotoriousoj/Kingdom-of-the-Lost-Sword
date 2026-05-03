@@ -15,8 +15,8 @@ var playerInstance
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#var ambience = AmbienceControl.instantiate()
-	#add_child(ambience)
+	var ambience = AmbienceControl.instantiate()
+	add_child(ambience)
 	#Generate World Tile System
 	if (worldSeed == 0):
 		RNG.randomize()
