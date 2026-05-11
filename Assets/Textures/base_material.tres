@@ -1,8 +1,0 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://b7seos0b4qrbt"]
-
-[ext_resource type="Shader" uid="uid://k6eksx4w7khq" path="res://terrain_tint.gdshader" id="1_kh3f2"]
-
-[resource]
-render_priority = 0
-shader = ExtResource("1_kh3f2")
-shader_parameter/tint_color = Color(1, 1, 1, 1)
