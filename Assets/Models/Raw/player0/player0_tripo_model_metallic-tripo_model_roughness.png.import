@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cko1pl0uy2cgi"
-path.s3tc="res://.godot/imported/Grass007.png-0a7226b65b494c6cfd5a3adf0ee8d05d.s3tc.ctex"
+uid="uid://3xed6hcykchd"
+path.s3tc="res://.godot/imported/player0_tripo_model_metallic-tripo_model_roughness.png-eb2b8416f129277760bdb5ae70073746.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "fbe7c7147889d771b78b3971a340a7f1"
+}
 
 [deps]
 
-source_file="res://Assets/Textures/Grass2/Grass007.png"
-dest_files=["res://.godot/imported/Grass007.png-0a7226b65b494c6cfd5a3adf0ee8d05d.s3tc.ctex"]
+source_file="res://Assets/Models/Raw/player0/player0_tripo_model_metallic-tripo_model_roughness.png"
+dest_files=["res://.godot/imported/player0_tripo_model_metallic-tripo_model_roughness.png-eb2b8416f129277760bdb5ae70073746.s3tc.ctex"]
 
 [params]
 

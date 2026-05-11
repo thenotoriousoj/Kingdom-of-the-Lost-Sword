@@ -24,11 +24,13 @@ fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.16933161, 0.1445843, 0.14470518, 1)
 fog_density = 1.0
-fog_aerial_perspective = 0.845
-fog_sky_affect = 0.455
+fog_aerial_perspective = 1.0
+fog_sky_affect = 0.0
 fog_depth_curve = 1.1095703
-fog_depth_begin = 0.0
-fog_depth_end = 300.0
+fog_depth_begin = 50.0
+fog_depth_end = 600.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
 
 [node name="Ambience" type="Node3D" unique_id=1382044986]
 script = ExtResource("1_qms6p")

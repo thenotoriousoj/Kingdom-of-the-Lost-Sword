@@ -33,5 +33,3 @@ max_distance = 8.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/StaticBody3D" unique_id=745111208]
 shape = SubResource("SphereShape3D_5ox6u")
-
-[node name="Node3D" type="Node3D" parent="." unique_id=1396287261]

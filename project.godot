@@ -92,4 +92,3 @@ run={
 
 rendering_device/driver.windows="d3d12"
 gl_compatibility/nvidia_disable_threaded_optimization=false
-renderer/rendering_method="mobile"

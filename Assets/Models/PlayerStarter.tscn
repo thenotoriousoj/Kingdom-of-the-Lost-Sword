@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://t6neyr8e028h"]
+
+[ext_resource type="PackedScene" uid="uid://dar50yn2v4k7f" path="res://Assets/Models/Raw/player0/player0.glb" id="1_mditj"]
+[ext_resource type="Script" uid="uid://by2ihs3548iq6" path="res://Scripts/character_body_3d.gd" id="2_gkk6k"]
+[ext_resource type="Script" uid="uid://dl77wirdoi6ht" path="res://Scripts/camera_3d.gd" id="3_ahnr6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gkk6k"]
+height = 2.9221191
+
+[node name="player0" unique_id=1891985581 instance=ExtResource("1_mditj")]
+script = ExtResource("2_gkk6k")
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(576110485) index="0" unique_id=1805840103]
+bones/3/rotation = Quaternion(-0.008904623, 7.09988e-15, -2.1230273e-09, 0.99996036)
+bones/4/rotation = Quaternion(0.8963459, -0.09370767, -0.07068364, -0.42753568)
+bones/5/rotation = Quaternion(-0.25351486, 0.13197298, -0.20212393, 0.936728)
+bones/6/rotation = Quaternion(-0.07038174, -0.011745533, -0.121029094, 0.9900811)
+bones/9/rotation = Quaternion(0.09706896, 0.2215391, -0.7158071, 0.65507126)
+bones/10/rotation = Quaternion(-0.23328654, -0.043324042, -0.019916449, 0.97123826)
+bones/11/rotation = Quaternion(-0.27108178, -0.023249598, -0.052269403, 0.9608549)
+bones/13/rotation = Quaternion(0.15082832, 0.25527343, -0.7917277, 0.53409135)
+bones/14/rotation = Quaternion(-0.15767488, -0.1264879, 0.027396744, 0.97897345)
+bones/15/rotation = Quaternion(-0.25283518, -0.062930174, 0.031822268, 0.964936)
+bones/17/rotation = Quaternion(-0.125284, -0.046746843, -0.067592725, 0.98871124)
+bones/18/rotation = Quaternion(-0.24288267, -0.051796593, 0.0023478873, 0.968669)
+bones/20/rotation = Quaternion(0.13080192, -0.28168556, 0.68456745, 0.65947825)
+bones/21/rotation = Quaternion(-0.04629849, 0.035307568, 0.089299485, 0.99430156)
+bones/22/rotation = Quaternion(-0.18649115, -0.06991835, 0.06199575, 0.97800255)
+bones/24/rotation = Quaternion(0.22673756, -0.24859495, 0.8868044, 0.31680992)
+bones/25/rotation = Quaternion(-0.025335789, 0.24901937, -0.051707324, 0.9667854)
+bones/26/rotation = Quaternion(0.8802749, -0.46449673, -0.032583166, -0.0910892)
+bones/28/rotation = Quaternion(0.28320917, -0.5991021, -0.023450788, 0.7485448)
+bones/29/rotation = Quaternion(-0.025165228, -0.70399696, -0.16320191, 0.69073886)
+bones/30/rotation = Quaternion(0.005134309, -0.84033835, 0.065747306, 0.5380357)
+bones/31/rotation = Quaternion(0.74751896, 0.59428334, 0.038144454, -0.29425788)
+bones/32/rotation = Quaternion(0.36047536, 0.699072, 0.61228603, -0.0803846)
+bones/33/rotation = Quaternion(0.04665322, -0.16240849, -0.12103782, 0.9781599)
+bones/34/rotation = Quaternion(-0.044538718, 0.34833393, -0.21363403, 0.9116141)
+bones/36/rotation = Quaternion(-0.79096663, -0.15130684, -0.091007225, 0.5858291)
+bones/37/rotation = Quaternion(0.01961049, -0.26451725, 0.010627082, 0.964123)
+bones/38/rotation = Quaternion(0.13781787, 0.5878171, -0.19367349, 0.7732839)
+bones/39/rotation = Quaternion(-0.1505355, 0.8924887, -0.24654391, 0.3464379)
+bones/40/rotation = Quaternion(0.025066737, -0.31659937, -0.1685079, 0.9331354)
+bones/41/rotation = Quaternion(-0.015189845, -0.08763519, -0.12400332, 0.9882877)
+bones/43/rotation = Quaternion(0.039559823, -0.68417907, 0.70383316, -0.18695733)
+bones/44/rotation = Quaternion(-0.003807244, 0.059374303, -0.101806715, 0.9930235)
+bones/45/rotation = Quaternion(-0.050735727, 0.5763479, -0.36234602, 0.7307219)
+bones/48/rotation = Quaternion(-0.017957777, -0.38666213, -0.08695928, 0.9179368)
+bones/53/rotation = Quaternion(-0.3603412, 0.7202589, 0.55313647, -0.21312302)
+bones/54/rotation = Quaternion(-0.18615533, -0.5886458, 0.6981998, -0.36243534)
+bones/56/rotation = Quaternion(0.69054973, 0.6046412, 0.19737491, -0.34437388)
+
+[node name="Camera3D" type="Camera3D" parent="." index="2" unique_id=1627810520]
+script = ExtResource("3_ahnr6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="3" unique_id=1206982595]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4709905, 0)
+shape = SubResource("CapsuleShape3D_gkk6k")

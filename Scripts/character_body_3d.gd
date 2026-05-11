@@ -1,20 +1,24 @@
 extends CharacterBody3D
 
 
-@export var SPEED = 5.0
+@export var SPEED = 30.0
 @export var RUN_MULTIPLIER = 2
 @export var WALK_MULTIPLIER = .5
 @export var JUMP_VELOCITY = 10
 @onready var camera = $Camera3D
+@onready var anim = $AnimationPlayer
 
+func _ready() -> void:
+	anim.play("Idle")
+	anim.get_animation('Idle').loop = true
 func _physics_process(delta: float) -> void:
 	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
 	# For falling through map
-	if global_position.y < -50:
-		global_position = Vector3(global_position.x, 230, global_position.z)
+	if global_position.y < -200:
+		global_position = Vector3(global_position.x, 50, global_position.z)
 		velocity = Vector3.ZERO
 	# Jump
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():

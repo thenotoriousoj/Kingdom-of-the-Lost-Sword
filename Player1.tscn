@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cxbsls2co23bp"]
+
+[ext_resource type="PackedScene" uid="uid://dar50yn2v4k7f" path="res://Assets/Models/Raw/player0/player0.glb" id="1_5pxne"]
+[ext_resource type="Script" uid="uid://by2ihs3548iq6" path="res://Scripts/character_body_3d.gd" id="2_7k5wa"]
+[ext_resource type="Script" uid="uid://dl77wirdoi6ht" path="res://Scripts/camera_3d.gd" id="3_7k5wa"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1slkb"]
+height = 2.9003906
+
+[node name="Node3D" type="Node3D" unique_id=1614965697]
+
+[node name="player0" parent="." unique_id=1093731569 instance=ExtResource("1_5pxne")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("2_7k5wa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="player0" unique_id=1455086001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4420208, 0)
+shape = SubResource("CapsuleShape3D_1slkb")
+
+[node name="Camera3D" type="Camera3D" parent="player0" unique_id=94348137]
+transform = Transform3D(0.04077706, 0.2586038, -0.9651224, 0, 0.9659259, 0.25881907, 0.9991683, -0.0105538815, 0.039387617, -3.1654973, 2.6361256, -0.059898276)
+current = true
+script = ExtResource("3_7k5wa")
+mouse_sensitivity = 0.003
+zoom_speed = 0.1
+zoom_smoothness = 5.0
+min_distance = 5.0
+max_distance = 8.0
