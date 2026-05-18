@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cm1xcw7fadomv"]
+
+[ext_resource type="Texture2D" uid="uid://dsxr4hu5a4tvo" path="res://Assets/Textures/Retro/Biomes/Volcanic Wastes/Materials/Ash/Ash_Color.jpg" id="1_sa1sv"]
+[ext_resource type="Texture2D" uid="uid://cs41qlj4ecd50" path="res://Assets/Textures/Retro/Biomes/Volcanic Wastes/Materials/Ash/Ash_NormalDX.jpg" id="2_wsfw6"]
+[ext_resource type="Texture2D" uid="uid://bcv11hq58chbk" path="res://Assets/Textures/Retro/Biomes/Volcanic Wastes/Materials/Ash/Ash_Roughness.jpg" id="3_0hd4h"]
+
+[resource]
+albedo_texture = ExtResource("1_sa1sv")
+roughness_texture = ExtResource("3_0hd4h")
+roughness_texture_channel = 4
+normal_enabled = true
+normal_texture = ExtResource("2_wsfw6")
+heightmap_enabled = true
+heightmap_scale = 1.0

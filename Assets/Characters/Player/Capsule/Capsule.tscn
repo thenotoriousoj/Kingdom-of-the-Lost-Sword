@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dx2e8py0hgodu"]
+
+[ext_resource type="Script" uid="uid://b67ovf78njfaw" path="res://Assets/Characters/Player/Capsule/capsule.gd" id="1_3tmbx"]
+[ext_resource type="Script" uid="uid://cnky4o4j0q5e2" path="res://Assets/Characters/Player/Capsule/capsule_spring_arm.gd" id="2_3tmbx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xhfnw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3tmbx"]
+margin = 0.5
+radius = 0.4
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1502067155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0098917, 0)
+script = ExtResource("1_3tmbx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1081662908]
+shape = SubResource("CapsuleShape3D_0rwas")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1787875408]
+mesh = SubResource("CapsuleMesh_xhfnw")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=307214041]
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 0.7496779, -0.0036381483)
+shape = SubResource("SphereShape3D_3tmbx")
+spring_length = 10.0
+margin = 0.15
+script = ExtResource("2_3tmbx")
+zoom_speed = 0.4
+min_distance = 4.0
+max_distance = 8.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1723325997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.27491462, 5.069434)
+current = true
+fov = 60.0
+size = 6.607
+near = 0.015
+far = 2000.0

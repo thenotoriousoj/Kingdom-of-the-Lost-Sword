@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cpb6rhabeqblx"]
+[gd_scene format=3 uid="uid://d2mcfhd5psjd4"]
 
-[ext_resource type="Script" uid="uid://dukjfd46o8v3n" path="res://Scripts/button.gd" id="1_qelcy"]
+[ext_resource type="Script" uid="uid://dukjfd46o8v3n" path="res://Scenes/Main Menu/button.gd" id="1_mdtah"]
 
 [node name="Control" type="Control" unique_id=28900859]
 layout_mode = 3
@@ -17,4 +17,4 @@ offset_top = 251.0
 offset_right = 698.0
 offset_bottom = 328.0
 text = "Generate"
-script = ExtResource("1_qelcy")
+script = ExtResource("1_mdtah")

@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="SwordCraft"
-run/main_scene="uid://cpb6rhabeqblx"
+config/name="Kingdom of the Lost Sword"
+run/main_scene="uid://bhtqh14ht8cjd"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 

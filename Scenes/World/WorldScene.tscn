@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dikslwwu2x46b"]
+
+[ext_resource type="Script" uid="uid://cru16n0n46g8v" path="res://Scenes/World/world_scene.gd" id="1_iy5w2"]
+[ext_resource type="Script" uid="uid://dqksm2v66y2bc" path="res://Scenes/World/UI/fps_label.gd" id="2_ltr0l"]
+[ext_resource type="Script" uid="uid://d3u6473hpj7tp" path="res://Scenes/World/UI/hex_label.gd" id="3_dyaqc"]
+
+[node name="Node3D" type="Node3D" unique_id=1159309732]
+script = ExtResource("1_iy5w2")
+worldSeed = 0
+
+[node name="FPS Label" type="Label" parent="." unique_id=1816705800]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_ltr0l")
+
+[node name="Hex Label" type="Label" parent="." unique_id=1036638126]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("3_dyaqc")

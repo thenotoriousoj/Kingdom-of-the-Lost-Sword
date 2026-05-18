@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bhtqh14ht8cjd"]
+
+[ext_resource type="Script" uid="uid://dukjfd46o8v3n" path="res://Scenes/Main Menu/button.gd" id="1_mdtah"]
+
+[node name="Control" type="Control" unique_id=28900859]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="." unique_id=611369883]
+layout_mode = 0
+offset_left = 443.0
+offset_top = 251.0
+offset_right = 698.0
+offset_bottom = 328.0
+text = "Generate"
+script = ExtResource("1_mdtah")
