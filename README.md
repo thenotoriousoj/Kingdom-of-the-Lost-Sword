@@ -1,4 +1,4 @@
-This is a passion project for a video game I've had in my mind for some time. The summary offers a brief overview of what to expect. 
+This is a passion project for a video game I've had in my mind for some time. The about summary offers a brief overview of what to expect. 
 
 --------------------------------------------
 WORLD GENERATION
